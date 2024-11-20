@@ -20,8 +20,8 @@ public class ProductService {
         return personRepository.findAll();
     }
     
-    public Products savePerson(Products person) {
-        return personRepository.save(person);
+    public void savePerson(Products person) {
+        personRepository.save(person);
     }
     
     public Optional<Products> getPersonById(Integer id) {
@@ -31,4 +31,5 @@ public class ProductService {
     public void deletePerson(Integer id) {
         personRepository.deleteById(id);
     }
+        
 }

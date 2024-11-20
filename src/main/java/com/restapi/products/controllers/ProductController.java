@@ -23,8 +23,9 @@ public class ProductController {
     
     
     @PostMapping
-    public Products createPerson(@RequestBody Products person) {
-        return personService.savePerson(person);
+    public ResponseEntity<Products> createPerson(@RequestBody Products person) {
+        personService.savePerson(person);
+        return ResponseEntity.ok().body(person);
     }
     
     
@@ -36,4 +37,24 @@ public class ProductController {
         }
         return ResponseEntity.notFound().build();
     }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<Products> updatedProducts(@PathVariable Integer id, @RequestBody Products person) {
+    	if(personService.getPersonById(id).isPresent()) {
+    		person.setId(id);
+    		personService.savePerson(person);
+    		return ResponseEntity.ok().body(person);
+    	}
+    	return ResponseEntity.notFound().build();
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Products> getProductById(@PathVariable Integer id) {
+    	if(personService.getPersonById(id).isPresent()) {
+    		personService.getPersonById(id);
+    		return ResponseEntity.ok().build();
+    	}
+    	return ResponseEntity.notFound().build();
+    }
+    
 }
